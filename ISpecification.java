@@ -1,6 +1,6 @@
 public interface ISpecification <T>{
 
-    IEnumerable<string> ReasonsForDissatisfaction();
+    Iterable<String> ReasonsForDissatisfaction();
 
     boolean IsSatisfiedBy(T entity);
 

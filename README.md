@@ -23,4 +23,6 @@ Luokan tehtävänä on tarkistaa merkkijonona annetun y-tunnuksen oikeellisuus, 
 1. Tehtävänannossa annettu koodi on ilmeisesti C#:ia. Koska oma tausta pääosin Javassa ja koska C# / Java jossain määrin sukulaiskieliä, pyrin ratkaisemaan tehtävänannon ensin Javalla ja käännän ratkaisun C#:lle jos ehdin.
 
 2. Alustava ratkaisumalli on varsin kapeatoiminen. Toivotaan vaan että saadaan String sisään todellisen olio-generaalisuuden sijaan. Myöskään  
-`ReasonsForDissatisfaction` ei ole vielä käytössä, vaan virheilmoitukset hoituvat toistaiseksi `System.err.println()` funktiolla joka antaa vain yhden virheen kerrallaan ulos. 
+`ReasonsForDissatisfaction` ei ole vielä käytössä, vaan virheilmoitukset hoituvat toistaiseksi `System.err.println()` funktiolla joka antaa vain yhden virheen kerrallaan ulos.
+
+3. Toinen versio: Lisätty toiminnallisuus `ReasonsForDissatisfaction` funktioon ja siistitty koodia hieman.

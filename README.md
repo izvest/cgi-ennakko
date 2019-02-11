@@ -20,4 +20,4 @@ Luokan tehtävänä on tarkistaa merkkijonona annetun y-tunnuksen oikeellisuus, 
 
 #### Omat kommentit
 
-1. Tehtävänannossa annettu koodi on ilmeisesti C#:ia. Koska oma tausta pääosin Javassa & C# / Java jossain määrin sukulaiskieliä, pyrin ratkaisemaan tehtävänannon ensin Javassa ja käännän ratkaisun C#:lle jos ehdin
+1. Tehtävänannossa annettu koodi on ilmeisesti C#:ia. Koska oma tausta pääosin Javassa & C# / Java jossain määrin sukulaiskieliä, pyrin ratkaisemaan tehtävänannon ensin Javalla ja käännän ratkaisun C#:lle jos ehdin

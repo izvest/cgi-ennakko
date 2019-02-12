@@ -21,12 +21,13 @@ public class BusinessIdSpecification implements ISpecification{
         if (entity instanceof String){
             return(checkString((String)entity));
         }
-        else if (entity instanceof Integer){
-            String input = entity.toString();
-            return(checkString(input));
-        }
         else{
-            needsCorrecting.add("STRICT: Incompatible type; please use String for now");
+            try{
+                String input = entity.toString();
+                return(checkString(input));
+            }catch(Exception e){
+                needsCorrecting.add("STRICT: Incompatible type");
+            }
         }
         return false;
     }
@@ -61,7 +62,7 @@ public class BusinessIdSpecification implements ISpecification{
             }
         }
         else{
-            needsCorrecting.add("STRICT: Wrong length of Y-tunnus. Check that its format is either XXXXXX-X or XXXXXXX");
+            needsCorrecting.add("STRICT: Wrong length of Y-tunnus. Ensure that the format it's given as is either XXXXXX-X or XXXXXXX");
         }
         return false;
     }

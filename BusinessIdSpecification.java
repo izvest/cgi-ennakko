@@ -21,6 +21,10 @@ public class BusinessIdSpecification implements ISpecification{
         if (entity instanceof String){
             return(checkString((String)entity));
         }
+        else if (entity instanceof Integer){
+            String input = entity.toString();
+            return(checkString(input));
+        }
         else{
             needsCorrecting.add("STRICT: Incompatible type; please use String for now");
         }

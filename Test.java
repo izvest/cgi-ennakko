@@ -2,7 +2,7 @@ import java.util.Iterator;
 
 public class Test{
     public static void main(String[] args) {
-        Object[] testInput = {010010, "Hello123", "20193", "201938+1", "111111-0", "1111111", 0.221};
+        Object[] testInput = {010010, "Hello123", "20193", "201938+1", "111111-0", "1111111", 0.221, 1111111};
 
         for(Object o : testInput){
             BusinessIdSpecification idCheck = new BusinessIdSpecification();

@@ -9,6 +9,10 @@ public class BusinessIdSpecification implements ISpecification{
         needsCorrecting = new ArrayList<String>();
     }
     
+
+    /*
+    Function: returns list of reason why y-tunnus is not acceptable, will be empty if everything ok
+    */
     public Iterable<String> ReasonsForDissatisfaction(){
         return needsCorrecting;
     }
@@ -18,13 +22,13 @@ public class BusinessIdSpecification implements ISpecification{
             return(checkString((String)entity));
         }
         else{
-            needsCorrecting.add("Incompatible type; please use String for now");
+            needsCorrecting.add("STRICT: Incompatible type; please use String for now");
         }
         return false;
     }
 
     /*
-    Function: check validity of y-tunnus (if given as a string) and add 
+    Function: check validity of y-tunnus (if given as a string)
 
     Input: string (y-tunnus)
     Output: boolean (was it valid or not?)
@@ -33,28 +37,24 @@ public class BusinessIdSpecification implements ISpecification{
     boolean checkString(String s){
         int sl = s.length();
         double checkSum = 0;
-        int[] checksumMultipliers = {7, 9, 10, 5, 8, 4, 2};
+        int[] checksumMultipliers = {7, 9, 10, 5, 8, 4, 2};     //source: http://tarkistusmerkit.teppovuori.fi/tarkmerk.htm
         if(sl == 7 || sl == 8){
-            for (int i = 0; i < 7; i++){
+            for (int i = 0; i < 6; i++){
                 if(!Character.isDigit(s.charAt(i))){
-                    needsCorrecting.add("STRICT: No characters allowed (in 6 first characters) of Y-tunnus");
+                    needsCorrecting.add("STRICT: Only numbers allowed in 6 first characters of Y-tunnus");
                     return false;
                 }
                 checkSum += checksumMultipliers[i]*Character.getNumericValue(s.charAt(i));
             }
-            char check = ' ';
-            try{check = calculateCheckChar(checkSum);}
-            catch(NumberFormatException e){
-                needsCorrecting.add("Invalid checksum of Y-tunnus"); 
-            }
+            char check = calculateCheckChar(checkSum);
             if (sl == 8 & s.charAt(6) != '-'){
                 needsCorrecting.add("No characters except '-' allowed in Y-tunnus");
             }
-            if (check == s.charAt(sl-1)){
-                System.out.println("Y-tunnus OK");
+            if (check != 'f' && check == s.charAt(sl-1)){
                 return true;
+            }else{
+                needsCorrecting.add("Checksum mismatch - invalid Y-tunnus");
             }
-            needsCorrecting.add("Something else is also wrong, but I have no idea what");
         }
         else{
             needsCorrecting.add("STRICT: Wrong length of Y-tunnus. Check that its format is either XXXXXX-X or XXXXXXX");
@@ -71,8 +71,11 @@ public class BusinessIdSpecification implements ISpecification{
     char calculateCheckChar(double checkSum){
         double tmp = checkSum/11;
         double trueCheckSum = 11*(tmp - (int)tmp);
+        double rounding = trueCheckSum-(int)trueCheckSum;
+        if(rounding > 0.5){trueCheckSum = (int)trueCheckSum + 1;}
+
         if (trueCheckSum == 0.0){return '0';}
-        else if (trueCheckSum == 1.0){throw new NumberFormatException("Wrong checksum");}
+        else if (trueCheckSum == 1.0){return 'f';}
         return(Character.forDigit((11-(int)trueCheckSum),10));
     }
 }

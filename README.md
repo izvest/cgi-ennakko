@@ -26,3 +26,5 @@ Luokan tehtävänä on tarkistaa merkkijonona annetun y-tunnuksen oikeellisuus, 
 `ReasonsForDissatisfaction` ei ole vielä käytössä, vaan virheilmoitukset hoituvat toistaiseksi `System.err.println()` funktiolla joka antaa vain yhden virheen kerrallaan ulos.
 
 3. Toinen versio: Lisätty toiminnallisuus `ReasonsForDissatisfaction` funktioon ja siistitty koodia hieman.
+
+4. Kolmas versio: Lisää koodin siistintää, testattu toiminaillisuutta `Test` luokalla.

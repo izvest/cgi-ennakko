@@ -27,4 +27,4 @@ Luokan tehtävänä on tarkistaa merkkijonona annetun y-tunnuksen oikeellisuus, 
 
 3. Toinen versio: Lisätty toiminnallisuus `ReasonsForDissatisfaction` funktioon ja siistitty koodia hieman.
 
-4. Kolmas versio: Lisää koodin siistintää, testattu toiminaillisuutta `Test` luokalla. Lisätty myös mahdollisuus käyttää Integeriä syötteenä.
+4. Kolmas versio: Lisää koodin siistintää, testattu toiminaillisuutta `Test` luokalla. Lisätty myös mahdollisuus käyttää ~~Integeriä~~ about mitä vaan syötteenä.

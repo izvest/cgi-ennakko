@@ -37,38 +37,49 @@ public class BusinessIdSpecification implements ISpecification{
 
     Input: string (y-tunnus)
     Output: boolean (was it valid or not?)
-    Secondary output: additions of possible errors for ReasonsForDissatisfaction to return
+    Secondary output: additions of possible errors to needsCorrecting
     */
     boolean checkString(String s){
-        int sl = s.length();
-        double checkSum = 0;
-        int[] checksumMultipliers = {7, 9, 10, 5, 8, 4, 2};     //source: http://tarkistusmerkit.teppovuori.fi/tarkmerk.htm
-        if(sl == 7 || sl == 8){
-            for (int i = 0; i < 6; i++){
-                if(!Character.isDigit(s.charAt(i))){
-                    needsCorrecting.add("STRICT: Only numbers allowed in 6 first characters of Y-tunnus");
-                    return false;
-                }
-                checkSum += checksumMultipliers[i]*Character.getNumericValue(s.charAt(i));
-            }
-            char check = calculateCheckChar(checkSum);
-            if (sl == 8 & s.charAt(6) != '-'){
+        double cs = checkSum(s);
+        if (cs != 0.0){
+            if (s.length() == 8 & s.charAt(6) != '-'){
                 needsCorrecting.add("No characters except '-' allowed in Y-tunnus");
             }
+            char check = calculateCheckChar(cs);
             if (check != 'f' && check == s.charAt(sl-1)){
                 return true;
-            }else{
-                needsCorrecting.add("Checksum mismatch - invalid Y-tunnus");
             }
-        }
-        else{
-            needsCorrecting.add("STRICT: Wrong length of Y-tunnus. Ensure that the format it's given as is either XXXXXX-X or XXXXXXX");
+            needsCorrecting.add("Checksum mismatch - invalid Y-tunnus");
         }
         return false;
     }
+    
+    /*
+    Function: calculate raw checksum of y-tunnus
+
+    Input: String (y-tunnus)
+    Output: double (the multipiler-added sum of first 6 digits of y-tunnus OR 0.0 if invalid y-tunnus)
+    Secondary output: additions of possible errors to needsCorrecting
+    */
+    double checkSum(String s){
+        int[] csMultipliers = {7, 9, 10, 5, 8, 4, 2};     //source: http://tarkistusmerkit.teppovuori.fi/tarkmerk.htm
+        double cs = 0;
+        if(s.length() == 7 || s.length() == 8){
+            for (int i = 0; i < 6; i++){
+                if(!Character.isDigit(s.charAt(i))){
+                    needsCorrecting.add("STRICT: Only numbers allowed in 6 first characters of Y-tunnus");
+                    return 0.0;
+                }
+                cs += csMultipliers[i]*Character.getNumericValue(s.charAt(i));
+            }
+            return cs;
+        }
+        needsCorrecting.add("STRICT: Wrong length of Y-tunnus. Ensure that the format it's given as is either XXXXXX-X or XXXXXXX");
+        return 0.0;
+    }
 
     /*
-    Function: calculate checksum of y-tunnus
+    Function: calculate final checksum of y-tunnus
 
     Input: double (the multipiler-added sum of first 6 digits of y-tunnus)
     Output: char (the last / verification number of y-tunnus)

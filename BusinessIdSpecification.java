@@ -12,11 +12,21 @@ public class BusinessIdSpecification implements ISpecification{
 
     /*
     Function: returns list of reason why y-tunnus is not acceptable, will be empty if everything ok
+
+    Input: -
+    Output: Iterable<String> (actually ArrayList)
     */
     public Iterable<String> ReasonsForDissatisfaction(){
         return needsCorrecting;
     }
 
+    /*
+    Function: tells if given y-tunnus is ok
+
+    Input: Object (actually String or has to have toString() -method correctly implemented)
+    Output: boolean (was it valid or not?)
+    Secondary output: addition of error to needsCorrecting if incompatible type or incorrect implementation of toString()
+    */
     public boolean IsSatisfiedBy (Object entity){
         if (entity instanceof String){
             return(checkString((String)entity));
@@ -26,7 +36,7 @@ public class BusinessIdSpecification implements ISpecification{
                 String input = entity.toString();
                 return(checkString(input));
             }catch(Exception e){
-                needsCorrecting.add("STRICT: Incompatible type");
+                needsCorrecting.add("STRICT: Incompatible type. Ensure that toString() is implemented correctly so that it returns either XXXXXX-X or XXXXXXX");
             }
         }
         return false;
@@ -46,7 +56,7 @@ public class BusinessIdSpecification implements ISpecification{
                 needsCorrecting.add("No characters except '-' allowed in Y-tunnus");
             }
             char check = calculateCheckChar(cs);
-            if (check != 'f' && check == s.charAt(sl-1)){
+            if (check != 'f' && check == s.charAt(s.length()-1)){
                 return true;
             }
             needsCorrecting.add("Checksum mismatch - invalid Y-tunnus");
